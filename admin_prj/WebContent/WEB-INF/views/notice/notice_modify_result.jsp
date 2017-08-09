@@ -149,8 +149,9 @@ tr:HOVER {
 		var check = confirm("삭제 하시겠습니까?");
 		/* 여부에 따른 삭제처리 */
 		if (check) {
-			obj.submit();
+			
 			alert("삭제되었습니다");
+			obj.submit();
 		} else {
 			return;
 		}
@@ -206,9 +207,8 @@ tr:HOVER {
 												</tr>
 												<tr>
 													<td>
-														<c:out value="${requestScope.detail_data.num }" />
-														<input type="hidden" value="${param.maxNum }" name="maxNum">
-														<input type="hidden" value="${requestScope.detail_data.notice_num }" name="notice_num">
+														<c:out value="${param.num }" />
+														<input type="hidden" value="${param.notice_num }" name="notice_num">
 													</td>
 													<td><c:out value="${requestScope.detail_data.title }" />${ not empty param.title?param.title :''  }</td>
 													<td>관리자</td>
@@ -224,25 +224,13 @@ tr:HOVER {
 												</tr>
 											</tbody>
 										</table>
-										<div align="right">
-											<a href="notice_modify.do?notice_num=${requestScope.detail_data.notice_num}&num=${ requestScope.detail_data.num }" ><input type="submit" class="btn" value="수정"></a>
-											<a href="notice_delete.do?notice_num=${requestScope.detail_data.notice_num}&num=${ requestScope.detail_data.num }" onclick="chkDelete();return false;"><input type="button" class="btn" value="삭제" ></a>
-										</div>
 								</div>
 								<div></div>
 								<div align="center">
-									<c:if test="${1 < requestScope.detail_data.num }">
-										<a
-											href="read_notice_detail.do?num=${ requestScope.detail_data.num-1 }&maxNum=${param.maxNum }"><input
-											type="button" class="btn" value="이전 글"></a>
-									</c:if>
-									<c:if test="${ requestScope.detail_data.num < param.maxNum }">
-										<a	href="read_notice_detail.do?num=${ requestScope.detail_data.num+1 }&maxNum=${param.maxNum }">
-										<input type="button" class="btn" value="다음 글"></a>
-									</c:if>
-									<!-- <a href="../index.do"><input type="button" class="btn" value="목록으로" ></a> -->
-									<a href="../notice_main.do?columnName=${ param.columnName}&keyword=${ param.keyword}" ><input
-										type="button" class="btn" value="목록으로"></a>
+									<a href="modify_detail.do?notice_num=${requestScope.detail_data.notice_num }&num=${param.num}&hiredate=${requestScope.detail_data.hiredate }"><input type="submit" class="btn" value="수정">
+									<a href="../notice_main.do"><input type="button" class="btn" value="목록으로" ></a>
+									<!-- <a href="#" onclick="history.go(-1);return false;"><input
+										type="button" class="btn" value="목록으로"></a> -->
 								</div>
 							</div>
 						</div>

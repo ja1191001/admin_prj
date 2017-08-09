@@ -214,7 +214,8 @@ tr:HOVER {
 												<tr>
 													<td>
 														<c:out value="${requestScope.detail_data.num }" />
-														<input type="hidden" value="${reqeustScope.detail_data.notice_num }" name="notice_num">
+														<%-- <input type="hidden" value="${reqeustScope.detail_data.notice_num }" name="notice_num"> --%>
+														<input type="hidden" value="${ param.notice_num }" name="notice_num">
 													</td>
 													 <td>
 														<input type="text" name="title" class="inputBox" value="${requestScope.detail_data.title } " style="width: 400px;">
@@ -233,7 +234,7 @@ tr:HOVER {
 											</tbody>
 										</table>
 										<div align="center">
-											<a href="modify_detail.do"><input type="submit" class="btn" value="수정">
+											<a href="modify_detail.do?notice_num=${requestScope.detail_data.notice_num }&num=${param.num}&hiredate=${requestScope.detail_data.hiredate }"><input type="submit" class="btn" value="수정">
 											<a href="#"  onclick="history.go(-1);return false;"><input type="button" class="btn" value="취소" ></a>
 										</div>
 										</form>

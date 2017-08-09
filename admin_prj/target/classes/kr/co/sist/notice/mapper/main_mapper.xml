@@ -5,62 +5,62 @@
 <mapper namespace="kr.co.sist.notice.dao.mainData">
 	
 	<select id="noticeView" parameterType="kr.co.sist.notice.vo.NoticeValueVO" resultType="kr.co.sist.notice.domain.NoticeData" >
-	
-	SELECT NUM, TITLE, HIREDATE, NOTICE_NUM
-	FROM (SELECT ROWNUM NUM, CONTENT, TITLE, HIREDATE, NOTICE_NUM	
-			FROM	(SELECT num NOTICE_NUM, TITLE, CONTENT, HIREDATE
-					FROM NOTICE
-					<where>
-					 <if test="keyword != ''" >
+		SELECT NUM, TITLE, HIREDATE, NOTICE_NUM
+		FROM (SELECT ROWNUM NUM, CONTENT, TITLE, HIREDATE, NOTICE_NUM	
+				FROM	(SELECT num NOTICE_NUM, TITLE, CONTENT, HIREDATE
+						FROM NOTICE
+						<where>
+							 <if test="keyword != ''" >
 								 <if test="columnName=='title'">
 									 TITLE LIKE '%'||#{keyword}||'%'
-									</if>
+								</if>
 								 <if test="columnName=='content'">
 									 CONTENT LIKE '%'||#{keyword}||'%'
-									</if>
-					</if> 
-					</where>
-					ORDER BY HIREDATE))
-	WHERE NUM BETWEEN #{startNum} AND #{endNum}
-	ORDER BY NUM DESC			
-	
+								</if>
+							</if> 
+						</where>
+						ORDER BY HIREDATE))
+		WHERE NUM BETWEEN #{startNum} AND #{endNum}
+		ORDER BY NUM DESC			
 	</select>   
 	
 	<select id="noticeCnt" parameterType="kr.co.sist.notice.vo.NoticeSearchVO"  resultType="kr.co.sist.notice.domain.NoticeCntData"  >
-		
-	SELECT COUNT(*) NUM
-	FROM NOTICE
-	<where>
-		 <if test="keyword != ''" >
-					 <if test="columnName=='title'">
-						TITLE LIKE '%'|| #{keyword} ||'%'
-						</if>
-					 <if test="columnName=='content'">
-						CONTENT LIKE '%'|| #{keyword} ||'%'
-						</if>
-		</if> 
-	</where>
-		
+		SELECT COUNT(*) NUM
+		FROM NOTICE
+		<where>
+			 <if test="keyword != ''" >
+				 <if test="columnName=='title'">
+					TITLE LIKE '%'|| #{keyword} ||'%'
+				</if>
+				 <if test="columnName=='content'">
+					CONTENT LIKE '%'|| #{keyword} ||'%'
+				</if>
+			</if> 
+		</where>
 	</select>
 	
 	<select id="noticeDetailView" parameterType="int" resultType="kr.co.sist.notice.domain.NoticeData"  >
-		
-	SELECT NUM, TITLE, CONTENT, HIREDATE, NOTICE_NUM
-	FROM (SELECT ROWNUM NUM, TITLE, CONTENT, HIREDATE, NOTICE_NUM	
-			FROM	(SELECT TITLE, CONTENT, HIREDATE, NUM NOTICE_NUM
-					FROM NOTICE
-					ORDER BY HIREDATE))
-	WHERE NUM = #{num} 
-	ORDER BY NUM DESC		
-		
+		SELECT NUM, TITLE, CONTENT, HIREDATE, NOTICE_NUM
+		FROM (SELECT ROWNUM NUM, TITLE, CONTENT, HIREDATE, NOTICE_NUM	
+				FROM	(SELECT TITLE, CONTENT, HIREDATE, NUM NOTICE_NUM
+						FROM NOTICE
+						ORDER BY HIREDATE))
+		WHERE NUM = #{num} 
+		ORDER BY NUM DESC		
 	</select>
 
 	<update id="modifyNoticeView" parameterType="kr.co.sist.notice.vo.NoticeModifyVO" >
-	
-	UPDATE NOTICE
-	SET AD_ID=#{id} , TITLE=#{title} , CONTENT=${content} , HIREDATE=SYSDATE
-	WHERE NUM=#{notice_num}
-		
+		UPDATE NOTICE
+		SET AD_ID=#{id} , TITLE=#{title} , CONTENT=#{content} , HIREDATE=SYSDATE
+		WHERE NUM=#{notice_num}
 	</update>
+	
+	<delete id="deleteNoticeView" parameterType="java.lang.String">
+		DELETE FROM NOTICE WHERE NUM=#{notice_num} 
+	</delete>
+	
+	<insert id="insertNoticeView" parameterType="kr.co.sist.notice.vo.NoticeWriteVO">
+		INSERT INTO NOTICE VALUES(NOTICE_NUM,#{id},#{title},#{content},SYSDATE)
+	</insert>
 	
 </mapper>

@@ -143,17 +143,27 @@ tr:HOVER {
 </style>
 
 <script type="text/javascript">
-	function chkDelete() {
-		var obj = document.searchFrm;
-		/*삭제여부 확인 */
-		var check = confirm("삭제 하시겠습니까?");
+	function chkNull() {
+		var obj = document.frm;
+		var title=obj.title.value;
+		var content=obj.content.value;
+		
+		/*등록여부 확인 */
+		var check = confirm("등록하시겠습니까?");
 		/* 여부에 따른 삭제처리 */
 		if (check) {
+			if(title=""){ //제목이 없다면
+				alert("제목을 작성해 주세요");
+				return;
+			}//end if	
+			if(content=""){ //내용이 없다면
+				alert("내용을 작성해 주세요");
+				return;
+			}//end if
 			obj.submit();
-			alert("삭제되었습니다");
 		} else {
 			return;
-		}
+		}//end else
 	} //chkDelete
 </script>
 </head>
@@ -187,6 +197,7 @@ tr:HOVER {
 							<div id="content">
 								<div id="notice"
 									style="width: 700px; min-height: 360px; top: 100px; ' margin: 0px auto">
+									<form action="notice_write_action.do" method="post" name="frm">
 										<table class="tab" style="margin: 10px; min-height: 300px;">
 											<colgroup>
 												<col width="9%" />
@@ -197,52 +208,40 @@ tr:HOVER {
 											<caption style="background-color: #ccc">게시글 상세</caption>
 											<tbody>
 												<c:set var="noticeDetail"
-													value="${requestScope.detail_data }"></c:set>
+													value="${requestScope.detail_data }">
+												</c:set>
 												<tr>
-													<th scope="col">글 번호</th>
-													<th scope="col" width="500">제목</th>
-													<th scope="col">작성자</th>
-													<th scope="col">작성시간</th>
+													<td scope="col">글 번호</th>
+													<td scope="col" width="500">제목</th>
+													<td scope="col">작성자</th>
+													<td scope="col">작성시간</th>
 												</tr>
 												<tr>
 													<td>
-														<c:out value="${requestScope.detail_data.num }" />
-														<input type="hidden" value="${param.maxNum }" name="maxNum">
-														<input type="hidden" value="${requestScope.detail_data.notice_num }" name="notice_num">
+														<input type="hidden" value="NOTICE_NUM" name="notice_num"> 
+														<%-- <input type="hidden" value="${ param.notice_num }" name="notice_num"> --%>
 													</td>
-													<td><c:out value="${requestScope.detail_data.title }" />${ not empty param.title?param.title :''  }</td>
-													<td>관리자</td>
-													<td><c:out
-															value="${requestScope.detail_data.hiredate }" /></td>
+													 <td>
+														<input type="text" name="title" class="inputBox" value="" style="width: 400px;">
+													 </td>
+													<td><input type="hidden" value="${reqeustScope.detail_data.id }" name="id">관리자</td>
 												</tr>
 												<tr>
 													<td colspan="4" align="left"
 														style="border: 1px solid #ccc; height: 400px; min-height: 400px; margin: 10px">
-														<textarea rows="30" cols="110"><c:out
-																value="${requestScope.detail_data.content }" />${ not empty param.content?param.content:''  }</textarea>
+														<textarea name="content" rows="30" cols="110">
+														</textarea>
 													</td>
 												</tr>
 											</tbody>
 										</table>
-										<div align="right">
-											<a href="notice_modify.do?notice_num=${requestScope.detail_data.notice_num}&num=${ requestScope.detail_data.num }" ><input type="submit" class="btn" value="수정"></a>
-											<a href="notice_delete.do?notice_num=${requestScope.detail_data.notice_num}&num=${ requestScope.detail_data.num }" onclick="chkDelete();return false;"><input type="button" class="btn" value="삭제" ></a>
+									
+										<div align="center">
+											<a href="notice_write_action.do?"><input type="submit" class="btn" value="작성" onclick="chkNull()">
+											<a href="#"  onclick="history.go(-1);return false;"><input type="button" class="btn" value="취소" ></a>
 										</div>
-								</div>
-								<div></div>
-								<div align="center">
-									<c:if test="${1 < requestScope.detail_data.num }">
-										<a
-											href="read_notice_detail.do?num=${ requestScope.detail_data.num-1 }&maxNum=${param.maxNum }"><input
-											type="button" class="btn" value="이전 글"></a>
-									</c:if>
-									<c:if test="${ requestScope.detail_data.num < param.maxNum }">
-										<a	href="read_notice_detail.do?num=${ requestScope.detail_data.num+1 }&maxNum=${param.maxNum }">
-										<input type="button" class="btn" value="다음 글"></a>
-									</c:if>
-									<!-- <a href="../index.do"><input type="button" class="btn" value="목록으로" ></a> -->
-									<a href="../notice_main.do?columnName=${ param.columnName}&keyword=${ param.keyword}" ><input
-										type="button" class="btn" value="목록으로"></a>
+										</form>
+									
 								</div>
 							</div>
 						</div>

@@ -14,6 +14,7 @@ import kr.co.sist.notice.vo.NoticeModifyVO;
 import kr.co.sist.notice.vo.NoticeSearchVO;
 import kr.co.sist.notice.vo.NoticeVO;
 import kr.co.sist.notice.vo.NoticeValueVO;
+import kr.co.sist.notice.vo.NoticeWriteVO;
 @Component
 public class MainDAO {
 	
@@ -30,7 +31,7 @@ public class MainDAO {
 		}//end if
 		
 		return list;
-	}//selectCar
+	}//selectNotice
 	
 	public NoticeCntData selectNoticeCnt(NoticeSearchVO nsVO)throws SQLException{
 		NoticeCntData ncd =null;
@@ -42,7 +43,7 @@ public class MainDAO {
 		}//end if
 		
 		return ncd;
-	}//selectCar
+	}//selectNoticeCnt
 	
 	public NoticeData selectNoticeDetail( int num )throws SQLException{
 		NoticeData nd=null;
@@ -54,17 +55,42 @@ public class MainDAO {
 		}//end if
 		
 		return nd;
-	}//selectCar
+	}//selectNoticeDetail
 
 	public int modifyNotice(NoticeModifyVO nmVO )throws SQLException{
 		int nd=0;
 		
 		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
-		nd=ss.selectOne("modifyNoticeView",nmVO);
+		nd=ss.update("modifyNoticeView",nmVO);
+		ss.commit();
 		if(ss!=null){
-			ss.commit();
+			ss.close();
+		}//end if
+		
+		return nd;
+	}//modifyNotice
+	
+	public int deleteNotice(String notice_num)throws SQLException{
+		int nd=0;
+		
+		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
+		nd=ss.delete("deleteNoticeView",notice_num);
+		ss.commit();
+		if(ss!=null){
+				ss.close();
+		}//end if
+		return nd;
+	}//deleteNotice
+	
+	public int insertNotice(NoticeWriteVO nwVO)throws SQLException{
+		int nd=0;
+		
+		SqlSession ss= GetSqlSession.getInstance().getSqlSession();
+		nd=ss.insert("insertNoticeView",nwVO);
+		ss.commit();
+		if(ss!=null){
 			ss.close();
 		}//end if
 		return nd;
-	}//selectCar
+	}//insertNotice
 }//class

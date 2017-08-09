@@ -15,6 +15,7 @@ import kr.co.sist.notice.vo.NoticeModifyVO;
 import kr.co.sist.notice.vo.NoticeSearchVO;
 import kr.co.sist.notice.vo.NoticeVO;
 import kr.co.sist.notice.vo.NoticeValueVO;
+import kr.co.sist.notice.vo.NoticeWriteVO;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -29,6 +30,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @Controller
 public class MainController {
 
+	/**
+	 * 공지사항 메인 리스트를 띄우는 메소드
+	 * @param model
+	 * @param nsVO
+	 * @param nvVO
+	 * @param currentPage
+	 * @param columnName
+	 * @param keyword
+	 * @return
+	 */
 	@RequestMapping(value="/notice_main.do",method={GET,POST})
 	 public String mainPage(Model model,NoticeSearchVO nsVO, NoticeValueVO nvVO, @RequestParam(defaultValue="1")int currentPage, @RequestParam(defaultValue="",value="columnName")String columnName, @RequestParam(defaultValue="",value="keyword")String keyword){//model을 매개변수로 선언해 준다
 		 
@@ -55,6 +66,12 @@ public class MainController {
 		 return "main/notice_main";
 	 }//configLocation
 	
+	/**
+	 * 공지사항에서 해당 내용을 클릭하면 세부창으로 이동
+	 * @param model
+	 * @param num
+	 * @return
+	 */
 	@RequestMapping(value="/notice/read_notice_detail.do",method={GET,POST})
 	public String useNoticeDetail(Model model, @RequestParam(defaultValue="0")int num){
 		
@@ -67,10 +84,15 @@ public class MainController {
 		
 		
 		model.addAttribute("detail_data",nd);
-		
 		return "notice/read_notice_detail";
 	}//useNoticeDetail
 	
+	/**
+	 * 세부사항에서 수정시 수정창으로 이동하는 메소드
+	 * @param model
+	 * @param num
+	 * @return
+	 */
 	@RequestMapping(value="/notice/notice_modify.do",method={GET,POST})
 	public String modifyNoticeDetail(Model model, @RequestParam(defaultValue="0")int num){
 		
@@ -83,25 +105,80 @@ public class MainController {
 		
 		
 		model.addAttribute("detail_data",nd);
-		System.out.println("**-*/-*/-*/-*/-*/-665618"+nd.getTitle());
 		
 		return "notice/notice_modify";
 	}//useNoticeDetail
 	
+	/**
+	 * 수정창에서 수정내용을 가지고 DB 내용 변경
+	 * @param model
+	 * @param nmVO
+	 * @param notice_num
+	 * @return
+	 */
 	@RequestMapping(value="/notice/modify_detail.do",method={GET,POST})
-	public String noticeModify(NoticeModifyVO nmVO){
+	public String noticeModify(Model model, NoticeModifyVO nmVO, @RequestParam String notice_num){
 	
-	//service
+		//service
 		String configLocation="kr/co/sist/notice/controller/app_con.xml";
 		ApplicationContext ac=new ClassPathXmlApplicationContext(configLocation);
 		MainService ms=ac.getBean("main_service",MainService.class);
 
-		System.out.println("@@@===@@@==%%%%");
-		System.out.println("111111@@@===@@@==%%%%"+nmVO.getNotice_num());
-		System.out.println("111111@@@===@@@==%%%%"+nmVO.getContent());
+		//관리자 ID 연동시까지 'admin'으로 통일
+		String id="admin";
+		nmVO.setId(id);
+		nmVO.setNotice_num(notice_num);
 		
 		boolean flag=ms.modifyNotice(nmVO);
-				
-		return "notice/read_notice_detail";
+			
+		model.addAttribute("nmvo",nmVO);
+		return "notice/notice_modify_result";
 	}//noticeModify
+	
+	/**
+	 * 해당 공지사항을 삭제처리하고, 삭제성공 창을 띄움
+	 * @param notice_num
+	 * @return
+	 */
+	@RequestMapping(value="/notice/notice_delete.do",method={GET,POST})
+	public String noticeDelete(@RequestParam String notice_num){
+		
+		//service
+		String configLocation="kr/co/sist/notice/controller/app_con.xml";
+		ApplicationContext ac=new ClassPathXmlApplicationContext(configLocation);
+		MainService ms=ac.getBean("main_service",MainService.class);
+		
+		boolean flag=ms.deleteNotice(notice_num);
+		
+		return "notice/notice_delete_result";
+	}//noticeDelete
+	
+	/**
+	 * 새 글쓰기 창으로 이동
+	 * @return
+	 */
+	@RequestMapping(value="/notice/notice_write.do",method={GET,POST})
+	public String noticeWrite(){
+	
+		return "notice/notice_write";
+	}//noticeWrite
+	
+	@RequestMapping(value="notice/notice_write_action.do",method={GET,POST})
+	public String noticeWriteAction(String title, String content, NoticeWriteVO nwVO){
+		
+		//service
+		String configLocation="kr/co/sist/notice/controller/app_con.xml";
+		ApplicationContext ac=new ClassPathXmlApplicationContext(configLocation);
+		MainService ms=ac.getBean("main_service",MainService.class);
+		
+		//관리자 ID 연동시까지 'admin'으로 통일
+		String id="admin";
+		nwVO.setId(id);
+		nwVO.setContent(content);
+		nwVO.setTitle(title);
+		
+		boolean flag=ms.insertNotice(nwVO);
+				
+		return "notice/notice_write_result";
+	}//noticeWriteAction
 }//controller

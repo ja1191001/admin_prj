@@ -14,6 +14,7 @@ import kr.co.sist.notice.vo.NoticeModifyVO;
 import kr.co.sist.notice.vo.NoticeSearchVO;
 import kr.co.sist.notice.vo.NoticeVO;
 import kr.co.sist.notice.vo.NoticeValueVO;
+import kr.co.sist.notice.vo.NoticeWriteVO;
 import oracle.sql.TIMESTAMPLTZ;
 @Component("main_service")
 public class MainService {
@@ -34,6 +35,7 @@ public class MainService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}//end catch
+		
 		
 		return list;
 	}//searchNotice
@@ -128,10 +130,44 @@ public class MainService {
 			}//end if
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}//end catch
 		
 		return flag;
 	}//modifyNotice
 	
+	public boolean deleteNotice(String notice_num){
+		
+		boolean flag=false;
+		
+		int cnt;
+		try {
+			cnt=md.deleteNotice(notice_num);
+			
+			if(cnt==1){
+				flag=true;
+			}//end if
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		
+		return flag;
+	}//deleteNotice
+	
+	public boolean insertNotice(NoticeWriteVO nwVO){
+		
+		boolean flag=false;
+		
+		int cnt;
+		try {
+			cnt=md.insertNotice(nwVO);
+
+			if(cnt==1){
+				flag=true;
+			}//end if
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+		
+		return flag;
+	}//insertNotice
 }//class

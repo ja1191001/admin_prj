@@ -142,7 +142,10 @@ function chkValue(){
 		<c:otherwise>
 			<c:forEach var="notice" items="${requestScope.noticeList }">
 			<tr>
-				<td><c:out value="${notice.num }"/></td>
+				<td>
+					<c:out value="${notice.num }"/>
+					<input type="hidden" value="${requestScope.notice_cnt.num }" name="maxNum"> 
+				</td>
 				<td align="left"> <a href="notice/read_notice_detail.do?num=${ notice.num }"><c:out value="${notice.title }"/></a></td>
 				<td>관리자</td>
 				<td><c:out value="${notice.hiredate }"/></td>

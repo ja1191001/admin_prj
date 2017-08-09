@@ -27,6 +27,27 @@
 	#agr_footer{text-align:center;margin-top:30px}
  	.ag_1{ border:1px solid #333; width:650px; height: 250px; overflow: auto;}
 </style>
+<script type="text/javascript">
+function chkNull(){
+	var obj=document.searchFrm;
+	//검색란이 공란인 상태로 검색시 전체 검색으로 적용
+	/* if(obj.keyword.value==""){
+		 alert("검색어를 입력해 주세요");
+		obj.keyword.focus(); 
+		
+		return;
+	}//end if */
+	
+	obj.submit();
+}//chkNull
+
+function chkValue(){
+	var obj=document.movePage;
+	
+	obj.submit();
+}//chkNull
+
+</script>   
     </head>
     <body>
 
@@ -44,18 +65,18 @@
 
             <li>
               <div class="heading">
-                <h1>메인타이틀</h1>
-                <span>서브타이틀</span>
+                <h1>혜림 렌트카</h1>
+                <span>공지사항</span>
               </div>
               <div class="cd-full-width first-slide">
                 <div class="container">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="content first-content">
-                        <h4>소제목</h4>
+                        <h4>공지사항</h4>
                         <div id="content">
 	<div id="notice" style="width:750px; min-height:700px;top:100px;'margin:0px auto">
-	<table class="tab" style="margin: 10px">
+	<table class="tab" style="margin: 0px auto;" >
 		<colgroup>
 			<col width="10%"/>
 			<col width="*"/>
@@ -78,8 +99,12 @@
 		<c:otherwise>
 			<c:forEach var="notice" items="${requestScope.noticeList }">
 			<tr>
-				<td><c:out value="${notice.num }"/></td>
-				<td align="left"> <a href="notice/read_notice_detail.do?num=${ notice.num }"><c:out value="${notice.title }"/></a></td>
+				<td>
+					<c:out value="${notice.num }"/>
+					<input type="hidden" value="${requestScope.notice.notice_num }" name="noticeNum"> 
+					<input type="hidden" value="${requestScope.notice_cnt.num }" name="maxNum"> 
+				</td>
+				<td align="left"> <a href="notice/read_notice_detail.do?currentPage=${noticePage.currentPage }&num=${ notice.num }&maxNum=${requestScope.notice_cnt.num }&columnName=${ param.columnName}&keyword=${ param.keyword}" ><c:out value="${notice.title }"/></a></td>
 				<td>관리자</td>
 				<td><c:out value="${notice.hiredate }"/></td>
 			</tr>	
@@ -88,12 +113,15 @@
 	</c:choose>
 	</tbody>
 	</table>
+	<div align="right">
+	<a href="notice/notice_write.do" ><input type="button" value="글쓰기" class="btn" /></a>
+	</div>
 	<br/>
 	<form action="notice_main.do" method="get" name="movePage">	
 <div align="center">
 <c:if test="${ not empty requestScope.noticePage }">
 	<c:if test="${requestScope.noticePage.currentPage !=1 }">
-		<a href="notice_main.do?currentPage=${noticePage.currentPage-1 }&columnName=${ columnName}&keyword=${ keyword}" ><img alt="이전 페이지" src="http://localhost:8080/car_prj/images/btn_prev.png" title="이전 페이지"></a>
+		<a href="notice_main.do?currentPage=${noticePage.currentPage-1 }&columnName=${ param.columnName}&keyword=${ param.keyword}" ><img alt="이전 페이지" src="http://localhost:8080/car_prj/images/btn_prev.png" title="이전 페이지"></a>
 	</c:if>
 	<c:choose>
 	<c:when test="${ empty param.columnName }">
@@ -110,7 +138,7 @@
 	
 	</c:otherwise>
 	</c:choose>
-	<c:if test="${requestScope.noticePage.currentPage  != requestScope.noticePage.lastPage }">
+	<c:if test="${requestScope.noticePage.currentPage  != requestScope.noticePage.totalPage }">
 		<a href="notice_main.do?currentPage=${noticePage.currentPage+1 }&columnName=${ columnName}&keyword=${ keyword}" onclick="chkValue()" ><img alt="다음 페이지" src="http://localhost:8080/car_prj/images/btn_next.png" title="다음 페이지"></a>
 	</c:if>
 </c:if>
