@@ -28,8 +28,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @Controller
-public class MainController {
+public class NoticeController {
 
+	
+	@RequestMapping(value="main.do",method={GET,POST})
+	public String main(){
+		return "main/main";
+	}
+	
 	/**
 	 * 공지사항 메인 리스트를 띄우는 메소드
 	 * @param model
@@ -63,7 +69,7 @@ public class MainController {
 		model.addAttribute("notice_cnt",ncd);
 		model.addAttribute("noticePage",npd);
 
-		 return "main/notice_main";
+		 return "notice/notice_main";
 	 }//configLocation
 	
 	/**

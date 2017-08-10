@@ -1,0 +1,102 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.rent.dao.RentDAO">
+	<sql id="where">
+		(cmk.car_name=cmd.car_name) and car_num not in(
+					   select car_num
+					   from reservation
+					   where end_date>=#{start_date} and start_date<![CDATA[<=]]>#{end_date}) 
+	</sql>
+
+	<select id="selectRentSchedual" parameterType="kr.co.sist.rent.vo.ScheVO" resultType="kr.co.sist.rent.domain.Schedual">
+		select num, resev_num, car_num, id,
+		to_char(start_date, 'yyyy-mm-dd') start_date, to_char(end_date, 'yyyy-mm-dd') end_date, 
+		licence_num, right_flag
+		from
+		(	
+			select rownum num, resev_num, car_num, id, 
+			start_date, end_date, licence_num, right_flag
+			from
+				( 
+					select *
+					from reservation
+					<where>
+						<if test="start_date!=''">
+							start_date =#{start_date}
+						</if>
+						<if test="end_date!=''">
+							and end_date =#{end_date}
+						</if>
+						<if test="id!=''">
+							and id=#{id}
+						</if>
+					</where>
+				)
+			)
+		where num between #{start_num} and #{end_num}
+		order by num desc
+	</select>
+	
+	<select id="selectRentCnt" parameterType="kr.co.sist.rent.vo.ScheSearchVO" resultType="kr.co.sist.rent.domain.cntData">
+		select count(*) num
+		from reservation
+		<where>
+			<if test="start_date!=''">
+				start_date>=#{start_date}
+			</if>
+			<if test="end_date!=''">
+				and end_date &gt;=#{end_date}
+			</if>
+			<if test="id!=''">
+				and id=#{id}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteRent">
+		delete
+		from reservation
+		where resev_num=#{reser_num}
+	</delete>
+	
+	<select id="selectRentAble" parameterType="kr.co.sist.rent.vo.DataVO" resultType="kr.co.sist.rent.domain.RentAble">
+		select cmd.car_num car_num, cmd.car_name car_name, cmd.car_year car_year, cmk.type type, cmk.fuel fuel, 
+		cmd.images images, #{start_date} start_date, #{end_date} end_date, cmk.rental_fee rental_fee
+		from car_maker cmk, car_model cmd
+		<where>
+				(cmk.car_name=cmd.car_name)
+			<if test="start_date!='' and end_date!=''">
+				 and car_num not in(
+					   select car_num
+					   from reservation
+					   where end_date <![CDATA[ >= ]]> #{start_date} and start_date <![CDATA[<=]]> #{end_date})
+			  </if> 
+			<if test="type !=''">
+				and cmk.type=#{type}
+			</if>
+			<if test="fuel != ''">
+				and cmk.fuel=#{fuel}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectDetailCar" parameterType="kr.co.sist.rent.vo.DetailVO" resultType="kr.co.sist.rent.domain.CarDetail">
+		select cmd.car_num car_num, cmd.car_name car_name, cmd.car_year car_year, cmk.type type, cmk.fuel fuel, cmk.rental_fee rental_fee, 
+		cmk.car_option car_option, cmk.cc cc, cmd.assign_num assign_num, cmd.images images, #{start_date} start_date, #{end_date} end_date , 
+		to_date(#{end_date},'yyyy-mm-dd') - to_date(#{start_date},'yyyy-mm-dd') duration
+		from car_maker cmk, car_model cmd
+		where (cmk.car_name=cmd.car_name) and cmd.car_num=#{car_num}
+	</select>
+	
+	<insert id="insertRent" parameterType="kr.co.sist.rent.vo.RentInsertVO">
+		insert into reservation(resev_num,car_num,id,start_date,end_date,licence_num,right_flag) 
+		values(resev_num,#{car_num},#{id},#{start_date},#{end_date},#{licence_num},#{right_flag})
+	</insert>
+	
+	<select id="selectMember" parameterType="String" resultType="String">
+		select id
+		from member
+		where id=#{id}
+	</select>
+</mapper>

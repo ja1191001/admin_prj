@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.log.dao.LogDAO">
+	<select id="selectAdminLogin" parameterType="kr.co.sist.log.vo.LogVO" resultType="String">
+		SELECT AD_ID
+ 		FROM ADMIN
+ 		WHERE AD_ID=#{id} AND PASS=#{pass}	
+	</select>
+	
+	<insert id="insertAdmin" parameterType="kr.co.sist.log.vo.EmpVO">
+		INSERT INTO ADMIN(AD_ID, PASS, NAME, EMPNO) VALUES(#{ad_id}, #{pass}, #{name}, #{empno})
+	</insert>
+	
+	<select id="selectAdminId" parameterType="kr.co.sist.log.vo.FindIdVO" resultType="String">
+		SELECT AD_ID
+		FROM ADMIN
+		WHERE NAME=#{name} AND EMPNO=#{empno}
+	</select>
+	
+	<select id="selectAdminPass" parameterType="kr.co.sist.log.vo.FindPassVO" resultType="String">
+		SELECT AD_ID
+		FROM ADMIN
+		WHERE NAME=#{name} AND EMPNO=#{empno} AND AD_ID=#{ad_id}
+	</select>
+	
+	<update id="updatePass" parameterType="kr.co.sist.log.vo.ChangeVO">
+		update admin
+		set pass=#{pass}
+		where ad_id=#{ad_id}
+	</update>
+</mapper>

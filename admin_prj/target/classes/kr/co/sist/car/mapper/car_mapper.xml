@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.car.dao.CarDAO"><!-- 메인화면에서 사용하는 data들 -->
+	<!-- 차종 목록  -->
+ 	<select id="selectCarType" resultType="kr.co.sist.car.domain.CarTypeDomain">
+		  	select car_name,type,fuel,rental_fee,cc,car_option
+			from car_maker
+			order by type desc
+ 	</select>
+
+	<!-- 차량 목록  -->
+ 	<select id="selectCar" resultType="kr.co.sist.car.domain.CarDomain">
+		  	select car_num,car_name,assign_num,car_year,able_flag
+			from car_model
+			order by car_num desc
+ 	</select>
+ 	
+ 	<!-- /////////////////////////////////////////////////////차종 관리/////////////////////////////////////////////////////////  -->
+ 	<!-- 차종 추가  -->
+ 	 <insert id="typeInsert" parameterType="kr.co.sist.car.vo.TypeInsertVO">
+		insert into car_maker(car_name,type,rental_fee,fuel,car_option,cc) values (#{car_name},#{type},#{rental_fee},#{fuel},#{car_option},#{cc})
+     </insert>
+ 	
+ 	<!-- 차종 수정 이전에 기존 차량정보를 보여주는 일  -->
+ 	<select id="updateSelectType" parameterType="kr.co.sist.car.vo.TypeInsertVO" resultType="kr.co.sist.car.domain.CarTypeDomain">
+		select car_name,type,fuel,car_option,rental_fee,cc
+		from car_maker
+		where car_name=#{car_name} and type=#{type} and fuel=#{fuel} and rental_fee=#{rental_fee} and cc=#{cc}
+ 	</select>
+		
+  	<!-- 차종 수정 -->
+	<update id="typeUpdate" parameterType="kr.co.sist.car.vo.TypeUpdateVO">
+		update car_maker
+		set type=#{type},fuel=#{fuel},car_option=#{car_option},rental_fee=#{rental_fee},cc=#{cc}
+		where car_name=#{car_name1} and type=#{type1} and fuel=#{fuel1}
+ 	</update>
+ 	
+ 	
+ 	 <!-- /////////////////////////////////////////////////////차량 관리/////////////////////////////////////////////////////////  -->
+ 	 <!-- 차량 추가  -->
+ 	 <insert id="carInsert" parameterType="kr.co.sist.car.vo.CarInsertVO">
+		insert into car_model(car_num,car_name,assign_num,car_year,images,able_flag) values(car_num,#{car_name},#{assign_num},#{car_year},#{images},#{able_flag})
+     </insert>
+     
+     <!-- 현재 보유중인 차종 리스트 -->
+   	 <select id="selectCarName" resultType="kr.co.sist.car.domain.CarNameDomain">
+		select car_name
+		from car_maker
+ 	</select>
+ 	
+ 	<!-- 차량 수정 이전에 기존 차량정보를 보여주는 일  -->
+ 	<select id="updateSelectCar" parameterType="java.lang.String" resultType="kr.co.sist.car.domain.CarUpdateDomain">
+		select car_num,car_name,assign_num,car_year,images,able_flag
+		from car_model
+		where car_num=#{car_num}
+ 	</select>
+ 	
+  	<!-- 차량 수정 -->
+	<update id="carUpdate" parameterType="kr.co.sist.car.vo.CarUpdateVO">
+		update car_model
+		set assign_num=#{assign_num},car_year=#{car_year},images=#{images},able_flag=#{able_flag}
+		where car_num=#{car_num}
+ 	</update>
+ 	
+ 	<!-- 차량 삭제  -->
+ 	<delete id="carDelete" parameterType="java.lang.String">
+ 		delete from car_model
+		where car_num=#{car_num}
+ 	</delete>
+ 	
+ 	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- <select id="carView" parameterType="kr.co.sist.car.vo.CarValueVO"  resultType="kr.co.sist.car.domain.CarData">
+	SELECT rnum,QNUM, TITLE, ID,HIREDATE,ANSWER_FLAG
+	FROM (SELECT ROWNUM rnum,QNUM, ID,CONTENT, TITLE, HIREDATE,ANSWER_FLAG
+			FROM	(SELECT QNUM,TITLE, ID,CONTENT, HIREDATE,ANSWER_FLAG
+					FROM QNA
+					ORDER BY HIREDATE))
+	WHERE rnum BETWEEN #{startNum} AND #{endNum}
+		 <if test="keyword != ''">
+		<if test="columnName != ''">
+			<choose>
+				<when test="columnName=='title'">
+					AND  TITLE LIKE #{keyword}
+				</when>
+				<when test="columnName=='content'">
+					AND  CONTENT LIKE #{keyword}
+				</when>
+			</choose>
+		</if>
+	</if> 
+	ORDER BY rnum DESC				
+	
+     </select>
+     
+     <insert id="carInsert" parameterType="kr.co.sist.car.vo.InsertCarVO">
+		INSERT INTO QNA(QNUM,ID,TITLE,CONTENT) VALUES(Q_NUM,#{id},#{title},#{content})
+     </insert>
+     
+     <update id="carUpdate" parameterType="kr.co.sist.car.vo.UpdateCarVO">
+		UPDATE QNA 
+		<set>
+		<if test="content!=''">
+		CONTENT=#{content} 
+		</if>
+		</set>
+		WHERE QNUM=#{cnum}
+     </update>
+     
+      <delete id="carDelete" parameterType="java.lang.String" >
+		DELETE FROM QNA WHERE QNUM=#{cnum}
+     </delete>
+     
+     <select id="carDetailView" parameterType="java.lang.String" resultType="kr.co.sist.car.domain.CarDetailData">
+		SELECT QNUM,CONTENT,ID,TITLE
+		FROM QNA
+		WHERE QNUM=#{cnum}
+     </select>
+     
+     
+		<select id="carCnt" resultType="kr.co.sist.car.domain.CarCntData"  >
+			SELECT COUNT(*) NUM
+			FROM QNA
+		</select> -->

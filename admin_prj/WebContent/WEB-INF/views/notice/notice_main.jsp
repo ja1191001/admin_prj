@@ -1,11 +1,26 @@
-<%@page import="kr.co.sist.notice.vo.NoticeValueVO"%>
-<%@page import="java.util.List"%>
-<%@page import="kr.co.sist.notice.controller.MainController"%>
-<%@page import="kr.co.sist.notice.dao.MainDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%
+         String mode=request.getParameter("mode");
+         String jsp="";
+         
+         if(mode==null)
+         {
+        	 mode="0";
+         }
+          int no = Integer.parseInt(mode);
+         switch(no)
+         {
+         case 0:
+        	 jsp="main.jsp";
+        	 break;
+         case 1:
+        	 jsp="test_notice.jsp";
+        	 break; 
+         }
+%>
+<!DOCTYPE html >
 <html>
 <head>
 <meta charset="UTF-8">
@@ -16,14 +31,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap.css">
-        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap-theme.css">
-        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/fontAwesome.css">
-        <link rel="stylesheet" href="http://localhost:8080/car_prj/template/css/templatemo-style.css">
-		<link rel="stylesheet" href="http://localhost:8080/car_prj/common/css/main.css">
-   	<style type="text/css">
+       <!--  <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.css">
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.min.css"> -->
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/fontAwesome.css">
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/templatemo-style.css">
+		<link rel="stylesheet" href="http://localhost:8080/admin_prj/common/css/main.css">
+	<style type="text/css">
 	#agr_wrap{margin:0px auto;width:650px; height:600px}
 	#agr_header{text-align:center}
 	#agr_footer{text-align:center;margin-top:30px}
@@ -31,7 +46,7 @@
    	#wrap{width:700px; min-height:100px; margin:0px auto}
    	#header{wedth:700px; height: 100px; position: relative; 
    	background: #FFBFBF 
-   	url(http://localhost:8080/car_prj/common/images/header_background.png) no-repeat;}
+   	url(http://localhost:8080/admin_prj/common/images/header_background.png) no-repeat;}
    	#logo{position: absolute; top:20px;left:50px}
    	#content{width: 700px; min-height: 100px; position: relative;}
    	#footer{width:700px; height:100px;}
@@ -65,61 +80,31 @@ td {
    text-align: center;
 }
 
-tr:HOVER {background-color: #EAE9F7}
-   </style>
-<script type="text/javascript">
-function chkNull(){
-	var obj=document.searchFrm;
-	//검색란이 공란인 상태로 검색시 전체 검색으로 적용
-	/* if(obj.keyword.value==""){
-		 alert("검색어를 입력해 주세요");
-		obj.keyword.focus(); 
-		
-		return;
-	}//end if */
-	
-	obj.submit();
-}//chkNull
-
-function chkValue(){
-	var obj=document.movePage;
-	
-	obj.submit();
-}//chkNull
-
-</script>   
+/* tr:HOVER {background-color: #EAE9F7} */
+</style>
 </head>
 <body>
-	<!-- 작성일 : 2017. 7. 26.
-		  작성자 : user
-		  내용 : 			
-	-->
-	 <div class="overlay"></div>
-        <section class="top-part">
-        </section>
-        
-        <section class="cd-hero">
-		<div class="cd-slider-nav">
-		
-		<c:import url="${ request.contextPath }/menu.do"/>
-		</div>
+<br>
+<br>
+  <center>
+  
+  <table border=1 bordercolor=black cellpadding=0 cellspacing="0" width="1000" min-height="450">
 
-     <!--      <ul>
-
-            <li> -->
-              <div class="heading">
-                <h1>공지사항</h1>
-                <span>공지사항</span>
-              </div>
-              <div class="cd-full-width first-slide" style="height: 750px">
-                <div class="container" style="height: 400px">
-                  <div class="row" style="height: 400px;">
-                    <div class="col-md-12">
-                      <div class="content first-content">
-	<div id="wrap">
-	<div id="content">
-	<div id="notice" style="width:750px; min-height:700px;top:100px;'margin:0px auto">
-	<table class="tab" style="margin: 10px">
+    <tr>
+      <td colspan=2 width=100% height=150>
+        <img src="http://localhost:8080/admin_prj/template/img/prove-bg.png" width=1000 height=150>
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td width=200 height=600 align=center valign=top>
+        <%@ include file="../main/menu.jsp" %>
+      </td>
+      <td width=800 height=600 align=center valign=top>
+	<!-- 여기에 메뉴를 뿌린다 -->
+	<div id="notice" style="width:800px; min-height:400px;top:100px;'margin:0px auto">
+	<table class="tab" style="margin: 0px auto;" >
 		<colgroup>
 			<col width="10%"/>
 			<col width="*"/>
@@ -144,9 +129,10 @@ function chkValue(){
 			<tr>
 				<td>
 					<c:out value="${notice.num }"/>
+					<input type="hidden" value="${requestScope.notice.notice_num }" name="noticeNum"> 
 					<input type="hidden" value="${requestScope.notice_cnt.num }" name="maxNum"> 
 				</td>
-				<td align="left"> <a href="notice/read_notice_detail.do?num=${ notice.num }"><c:out value="${notice.title }"/></a></td>
+				<td align="left"> <a href="notice/read_notice_detail.do?currentPage=${noticePage.currentPage }&num=${ notice.num }&maxNum=${requestScope.notice_cnt.num }&columnName=${ param.columnName}&keyword=${ param.keyword}" ><c:out value="${notice.title }"/></a></td>
 				<td>관리자</td>
 				<td><c:out value="${notice.hiredate }"/></td>
 			</tr>	
@@ -155,36 +141,39 @@ function chkValue(){
 	</c:choose>
 	</tbody>
 	</table>
-	<br/>
-	<form action="index.do" method="get" name="movePage">	
-<div align="center">
+	<div align="right" style="padding-right: 65px; padding-top: 10px">
+	<a href="notice/notice_write.do" ><input type="button" value="글쓰기" class="btn" /></a>
+	</div>
+	<!-- <br/> -->
+	<form action="notice_main.do" method="get" name="movePage">	
+<div align="center" style="padding-bottom: 10px" >
 <c:if test="${ not empty requestScope.noticePage }">
 	<c:if test="${requestScope.noticePage.currentPage !=1 }">
-		<a href="index.do?currentPage=${noticePage.currentPage-1 }&columnName=${ columnName}&keyword=${ keyword}" ><img alt="이전 페이지" src="http://localhost:8080/car_prj/images/btn_prev.png" title="이전 페이지"></a>
+		<a href="notice_main.do?currentPage=${noticePage.currentPage-1 }&columnName=${ param.columnName}&keyword=${ param.keyword}" ><img alt="이전 페이지" src="http://localhost:8080/car_prj/images/btn_prev.png" title="이전 페이지"></a>
 	</c:if>
 	<c:choose>
 	<c:when test="${ empty param.columnName }">
 	
 	<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
-	[ <a href="index.do?currentPage=${ i }">${ i }</a> ]
+	[ <a href="notice_main.do?currentPage=${ i }">${ i }</a> ]
 	</c:forEach> 
 	
 	</c:when>
 	<c:otherwise>
 	<c:forEach var="i" begin="${requestScope.noticePage.firstPage }" end="${ requestScope.noticePage.lastPage }" step="1">
-	[ <a href="index.do?currentPage=${ i }&columnName=${ param.columnName}&keyword=${ param.keyword}" >${ i }</a> ]
+	[ <a href="notice_main.do?currentPage=${ i }&columnName=${ param.columnName}&keyword=${ param.keyword}" >${ i }</a> ]
 	</c:forEach>
 	
 	</c:otherwise>
 	</c:choose>
-	<c:if test="${requestScope.noticePage.currentPage  != requestScope.noticePage.lastPage }">
-		<a href="index.do?currentPage=${noticePage.currentPage+1 }&columnName=${ columnName}&keyword=${ keyword}" onclick="chkValue()" ><img alt="다음 페이지" src="http://localhost:8080/car_prj/images/btn_next.png" title="다음 페이지"></a>
+	<c:if test="${requestScope.noticePage.currentPage  != requestScope.noticePage.totalPage }">
+		<a href="notice_main.do?currentPage=${noticePage.currentPage+1 }&columnName=${ columnName}&keyword=${ keyword}" onclick="chkValue()" ><img alt="다음 페이지" src="http://localhost:8080/car_prj/images/btn_next.png" title="다음 페이지"></a>
 	</c:if>
 </c:if>
 </div>	
 </form>
 	<div style="text-align: center; min-height: 100px;" >
-	<form action="index.do" method="get" name="searchFrm">
+	<form action="notice_main.do" method="get" name="searchFrm">
 		<select name="columnName">
 			<option value="title">제목</option>
 			<option value="content">내용</option>
@@ -196,26 +185,12 @@ function chkValue(){
 
 	</div>
 	</div>
-	</div>
-	</div>
-                      </div>
-                    </div>
-                  </div>                  
-                </div>
-              </div>
-       <!--      </li>
-          </ul> .cd-hero-slider -->
-        </section> <!-- .cd-hero -->
-	<footer >
-		<!-- <div id="footer_text"> -->
-		Copyright &copy; 2017 class4 dongha, All Right Reserved
-		<!-- </div> -->
-	</footer>
-	 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+      </td>
+    </tr>
+  
+  </table>
+  
+  </center>
 </body>
 </html>
