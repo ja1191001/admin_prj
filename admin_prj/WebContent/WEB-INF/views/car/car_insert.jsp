@@ -52,7 +52,6 @@
 			 }
 			 
  			obj.submit(); 
- 			alert("submit되었습니다.");
 		}//checkNull
 		
 		function cancle(){
@@ -66,7 +65,7 @@
 	
      <strong>▶차량 추가◀</strong><br/>
  	아래에 정보를 입력하여 새로운 차량을 추가하세요.
-	<form action="car_insert_success.do" name="frm" enctype="multipart/form-data">
+	<form action="car_insert_success.do" name="frm" enctype="multipart/form-data" method="post">
 		<table border="1" style="width: 500px; text-align: center;">
 			<tr>
 				<td colspan="2" style="background-color:#FFBB05">차량추가</td>

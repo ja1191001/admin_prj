@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import kr.co.sist.car.domain.CarDomain;
 import kr.co.sist.car.domain.CarNameDomain;
 import kr.co.sist.car.domain.CarTypeDomain;
@@ -17,7 +20,11 @@ import kr.co.sist.car.vo.TypeUpdateVO;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -129,14 +136,31 @@ public class CarController {
 	 * @param tiv
 	 * @return
 	 */
-	@RequestMapping(value="car_insert_success.do",method=GET)
-	public String typeInsert(CarInsertVO civ){
-		System.out.println("1.controller탑니다. 차량추가 입니다.");
-		ApplicationContext ac=new ClassPathXmlApplicationContext("kr/co/sist/car/controller/app_con.xml");
-		CarService cs=ac.getBean("car_service",CarService.class);
-		cs.addCar(civ);
-		return "redirect:/car/car_main.html";
-	}//insert
+	  @RequestMapping(value="car_insert_success.do",method=POST)
+	   public String typeInsert( HttpServletRequest request) throws IOException{
+	      System.out.println("1.controller탑니다. 차량추가 입니다.");
+	      String contextType=request.getContentType();
+	      if( contextType != null && contextType.startsWith("multipart")){
+	         //저장경로 설정
+	         String upload_path="C:/dev/admin_prj/admin_prj/WebContent/images"; //우리는 저장하는 경로가 DD에 들어있다
+	         int maxSize=1000*1000*5;
+	      MultipartRequest mr=new MultipartRequest(request,upload_path,maxSize,"UTF-8",new DefaultFileRenamePolicy());
+	      ////////////////////파일명 얻어내기/////////////////
+	      Enumeration<String> fileName=mr.getFileNames();
+	      String fileControlName="";
+	      String images="";
+	      while(fileName.hasMoreElements()){
+	         fileControlName=fileName.nextElement();
+	         images=mr.getFilesystemName(fileControlName);
+	      }//end while
+	      System.out.println(images);
+	      CarInsertVO civ=new CarInsertVO(mr.getParameter("car_name"),mr.getParameter("assign_num"),mr.getParameter("car_year"),images,mr.getParameter("able_flag"));
+	      ApplicationContext ac=new ClassPathXmlApplicationContext("kr/co/sist/car/controller/app_con.xml");
+	      CarService cs=ac.getBean("car_service",CarService.class);
+	      cs.addCar(civ);
+	      }
+	      return "redirect:/car/car_main2.html";
+	   }//typeInsert
 	
 	
 	/**
