@@ -12,10 +12,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-       <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.css">
+      <!--  <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/fontAwesome.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/templatemo-style.css">
 		<link rel="stylesheet" href="http://localhost:8080/admin_prj/common/css/main.css">
@@ -44,8 +44,6 @@
 th {
 	text-align: center;
    font-weight: normal;
-   background-color: #FAFAFA;
-   border-bottom: 1px solid #E7E7E7;
    height: 37px
 }
 
@@ -62,7 +60,6 @@ td {
    text-align: center;
 }
 
-tr:HOVER {background-color: #EAE9F7}
 </style>
 <script type="text/javascript">
 	function chkPass(){
@@ -143,8 +140,8 @@ tr:HOVER {background-color: #EAE9F7}
 			<form name="frm" method="post" action="../sign_in.do">
 		<table style="width:300px;margin-left: auto; margin-right: auto;">
 			<tr>
-				<th style="width:150px;text-align: right"><label>이름 </label></th>
-				<td style="width:150px;text-align:left"><input type="text" name="name" style="width:120px" onchange="chkPass()"></td>
+				<th style="width:60px;text-align: right"><label>이름 </label></th>
+				<td style="width:120px;text-align:left"><input type="text" name="name" style="width:120px" onchange="chkPass()"></td>
 			</tr>
 			<tr>
 				<th style="text-align: right"><label>사원번호 </label></th>

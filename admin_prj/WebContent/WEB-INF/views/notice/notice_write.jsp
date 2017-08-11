@@ -44,7 +44,7 @@
 th {
 	text-align: center;
    font-weight: normal;
-   background-color: #FAFAFA;
+   background-color: #FFBB05;
    border-bottom: 1px solid #E7E7E7;
    height: 37px
 }
@@ -102,7 +102,7 @@ td {
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="../main/menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
 <div class="content first-content">
@@ -118,16 +118,16 @@ td {
 							<col width="8%" />
 							<col width="20%" />
 						</colgroup>
-						<caption style="background-color: #ccc">게시글 상세</caption>
+						<caption style="background-color: #FFBB05">게시글 상세</caption>
 						<tbody>
 							<c:set var="noticeDetail"
 								value="${requestScope.detail_data }">
 							</c:set>
 							<tr>
-								<td scope="col">글 번호</th>
-								<td scope="col" width="500">제목</th>
-								<td scope="col">작성자</th>
-								<td scope="col">작성시간</th>
+								<th scope="col">글 번호</th>
+								<th scope="col" width="500">제목</th>
+								<th scope="col">작성자</th>
+								<th scope="col">작성시간</th>
 							</tr>
 							<tr>
 								<td>

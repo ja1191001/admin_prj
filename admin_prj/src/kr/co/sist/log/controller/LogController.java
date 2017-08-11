@@ -24,7 +24,7 @@ public class LogController {
 	
 	@RequestMapping(value="menu.do", method={GET,POST})
 	public String callMenu(){
-		return "main/menu";
+		return "menu/menu";
 	}//callMenu
 	
 	@RequestMapping(value="start.do", method={GET, POST})

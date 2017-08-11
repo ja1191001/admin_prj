@@ -80,7 +80,7 @@ td {
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="../main/menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
 <div class="container">

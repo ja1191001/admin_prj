@@ -31,6 +31,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class NoticeController {
 
 	
+//	@RequestMapping(value="/menu.do",method={GET,POST})
+//	public String menu(){
+//		return "main/menu";
+//	}
+//	
+	
 	@RequestMapping(value="main.do",method={GET,POST})
 	public String main(){
 		return "main/main";

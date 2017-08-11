@@ -44,7 +44,7 @@
 th {
 	text-align: center;
    font-weight: normal;
-   background-color: #FAFAFA;
+   background-color: #FFBB05;
    border-bottom: 1px solid #E7E7E7;
    height: 37px
 }
@@ -62,7 +62,6 @@ td {
    text-align: center;
 }
 
-tr:HOVER {background-color: #EAE9F7}
 </style>
 <script type="text/javascript">
 	function setId(id){
@@ -91,7 +90,7 @@ tr:HOVER {background-color: #EAE9F7}
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="../main/menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
       		회원찾기

@@ -1,25 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-<%
-         String mode=request.getParameter("mode");
-         String jsp="";
-         
-         if(mode==null)
-         {
-        	 mode="0";
-         }
-          int no = Integer.parseInt(mode);
-         switch(no)
-         {
-         case 0:
-        	 jsp="main.jsp";
-        	 break;
-         case 1:
-        	 jsp="test_notice.jsp";
-        	 break; 
-         }
-%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -55,7 +36,7 @@
 th {
 	text-align: center;
    font-weight: normal;
-   background-color: #FAFAFA;
+   background-color: #FFBB05;
    border-bottom: 1px solid #E7E7E7;
    height: 37px
 }
@@ -90,7 +71,7 @@ tr:HOVER {background-color: #EAE9F7}
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="menu.jsp" %>
+        <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
 	여기에 메뉴를 뿌린다

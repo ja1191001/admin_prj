@@ -12,10 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-       <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/fontAwesome.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/templatemo-style.css">
 		<link rel="stylesheet" href="http://localhost:8080/admin_prj/common/css/main.css">
@@ -44,7 +40,7 @@
 th {
 	text-align: center;
    font-weight: normal;
-   background-color: #FAFAFA;
+   background-color: #FFBB05;
    border-bottom: 1px solid #E7E7E7;
    height: 37px
 }
@@ -62,7 +58,6 @@ td {
    text-align: center;
 }
 
-tr:HOVER {background-color: #EAE9F7}
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -118,7 +113,7 @@ tr:HOVER {background-color: #EAE9F7}
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="../main/menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
       		<h4>예약관리</h4>
@@ -152,7 +147,7 @@ tr:HOVER {background-color: #EAE9F7}
 					<td><c:out value="${ rent.end_date }"/></td>
 					<td><c:out value="${ rent.licence_num }"/></td>
 					<td><c:out value="${ rent.right_flag }"/></td>
-					<td><input type="button" name="cancel" value="예약취소" onclick="rentCancel('${rent.resev_num}')"/></td>
+					<td><input type="button" name="cancel"  class="btn" value="예약취소" onclick="rentCancel('${rent.resev_num}')"/></td>
 				</tr>
 				</c:forEach>
 			</c:otherwise>
@@ -184,8 +179,8 @@ tr:HOVER {background-color: #EAE9F7}
 		대여일 : <input type="text" id="start_date" name="start_date"/>
 		반납일 : <input type="text" id="end_date" name="end_date"/><br/>
 		예약자 아이디 : <input type="text" name="id"/>	
-		<input type="button" value="찾기" onclick="search()"/>	
-		<a href="rent_able.do"><input type="button" value="예약추가"/></a>	
+		<input type="button" class="btn" value="찾기" onclick="search()"/>	
+		<a href="rent_able.do"><input type="button" class="btn" value="예약추가"/></a>	
 	</div>
 	</form>
       </td>

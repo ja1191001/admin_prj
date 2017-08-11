@@ -5,8 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Newline CSS Template with a video background</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/fontAwesome.css">
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/templatemo-style.css">
+		<link rel="stylesheet" href="http://localhost:8080/admin_prj/common/css/main.css">
+        
 <script type="text/javascript">
  	//////////차종 수정/////////
 	function checkNull(){
@@ -113,8 +123,10 @@
 					<input type="hidden"  name="cc1" value="${ param.cc }">
 		</form>
 		<br/>
+		<div align="center">
 		<input type="button" value="수정완료" class="btn" onclick="checkNull()"/>
 		<input type="button" value="뒤로" class="btn" onclick="back()"/> 
+		</div>
 
 </body>
 </html>

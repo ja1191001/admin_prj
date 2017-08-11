@@ -12,10 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-       <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/fontAwesome.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/templatemo-style.css">
 		<link rel="stylesheet" href="http://localhost:8080/admin_prj/common/css/main.css">
@@ -44,7 +40,7 @@
 th {
 	text-align: center;
    font-weight: normal;
-   background-color: #FAFAFA;
+   background-color: #FFBB05;
    border-bottom: 1px solid #E7E7E7;
    height: 37px
 }
@@ -62,7 +58,6 @@ td {
    text-align: center;
 }
 
-tr:HOVER {background-color: #EAE9F7}
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -121,7 +116,7 @@ tr:HOVER {background-color: #EAE9F7}
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="../main/menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
       		<c:if test="${not empty param.start_date and not empty param.end_date}">
@@ -154,8 +149,10 @@ tr:HOVER {background-color: #EAE9F7}
 	</c:if>
 	<form name="frm">
 	<div>
+	<br/>
+	<br/>
 		대여일 : <input type="text" id="start_date" name="start_date"/>
-		반납일 : <input type="text" id="end_date" name="end_date"/><br/>
+		반납일 : <input type="text" id="end_date" name="end_date"/><br/><br/>
 		차종 : 
 		<select id="type" name="type">
            <option value="">차종</option>
@@ -171,7 +168,7 @@ tr:HOVER {background-color: #EAE9F7}
            <option value="휘발유">휘발유</option>
            <option value="경유">경유</option>
 		  </select>
-		  <input type="button" value="검색" onclick="checkNull()"/>
+		  <input type="button" class="btn" value="검색" onclick="checkNull()"/>
 	</div>
 	</form>
       </td>

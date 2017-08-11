@@ -80,11 +80,14 @@ td {
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="../main/menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
-	질문삭제가 완료되었습니다!
-	<a href="/admin_prj/qna_main.do"><input type=button value="메인으로가기"></a>			
+      <br>
+      <br>
+      <br>
+	질문삭제가 완료되었습니다!<br>
+	<a href="/admin_prj/qna_main.do"><input type=button class="btn" value="메인으로가기"></a>			
 	<br>
 	<br>
      

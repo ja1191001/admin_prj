@@ -12,10 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-       <!-- <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/fontAwesome.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/templatemo-style.css">
 		<link rel="stylesheet" href="http://localhost:8080/admin_prj/common/css/main.css">
@@ -83,15 +79,12 @@ td {
       <td width=200 height=600 align=center valign=top>
        <%--  <%@ include file="login.jsp" %>
         <p><br></p> --%>
-        <%@ include file="menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
-=================================================<br>
-	여기에 넣어줘요~~~
-	<br>
-	<br>
-     
-=================================================
+		<div style="background-image:url('http://localhost:8080/admin_prj/images/main_image1.jpg');background-size: inherit;;  padding-top: 100px;"></div>
+		<div style="background-image:url('http://localhost:8080/admin_prj/images/main_image2.jpg');background-size: inherit;;  padding-top: 100px;"></div>
+	
       </td>
     </tr>
     

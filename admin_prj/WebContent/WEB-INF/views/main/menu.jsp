@@ -17,31 +17,31 @@
 	   	</td>
 	  </tr>
       <tr height=35>
-        <td align=left><a href="main.do">메인화면</a></td>
+        <td align=left><a href="../main.do">메인화면</a></td>
       </tr>
       
             <tr height=35>
-        <td align=left><a href="member_main.do">회 원 관 리</a></td>
+        <td align=left><a href="../member_main.do">회 원 관 리</a></td>
       </tr>
       
       <tr height=35>
-        <td align=left><a href="car_main.do">차 량 관 리</a></td>
+        <td align=left><a href="../car_main.do">차 량 관 리</a></td>
       </tr>
       
       <tr height=35>
-         <td align=left><a href="notice_main.do">공 지 사 항 관 리</a></td>
+         <td align=left><a href="../notice_main.do">공 지 사 항 관 리</a></td>
       </tr>
       
       <tr height=35>
-         <td align=left><a href="qna_main.do">Q & A 관 리</a></td>
+         <td align=left><a href="../qna_main.do">Q & A 관 리</a></td>
       </tr>
       
       <tr height=35>
-         <td align=left><a href="rent_list.do">예 약 관 리</a></td>
+         <td align=left><a href="../rent_list.do">예 약 관 리</a></td>
       </tr>
       
       <tr height=35>
-         <td align=left><a href="main/sign_in.jsp">관 리 자 관 리</a></td>
+         <td align=left><a href="../main/sign_in.jsp">관 리 자 관 리</a></td>
       </tr>
       
     </table>

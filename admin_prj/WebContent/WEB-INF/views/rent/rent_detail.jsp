@@ -104,7 +104,7 @@ tr:HOVER {background-color: #EAE9F7}
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-         <%@ include file="../main/menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.jsp" />
       </td>
       <td width=800 height=600 align=center valign=top>
       		<form name="frm" action="rent_add.do">

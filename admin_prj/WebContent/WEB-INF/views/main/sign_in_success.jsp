@@ -45,7 +45,7 @@ th {
 	text-align: center;
    font-weight: normal;
    background-color: #FAFAFA;
-   border-bottom: 1px solid #E7E7E7;
+   border-bottom: 1px solid #FFBB05;
    height: 37px
 }
 
@@ -62,7 +62,6 @@ td {
    text-align: center;
 }
 
-tr:HOVER {background-color: #EAE9F7}
 </style>
     </head>
     <body>
@@ -80,7 +79,7 @@ tr:HOVER {background-color: #EAE9F7}
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="menu.jsp" %>
+        <c:import url="${request.contextPath }/menu.do" />
       </td>
       <td width=800 height=600 align=center valign=top>
       		관리자가 성공적으로 등록되었습니다.

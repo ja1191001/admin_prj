@@ -80,11 +80,11 @@ tr:HOVER {background-color: #EAE9F7}
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-         <%@ include file="../main/menu.jsp" %>
+       <c:import url="${request.contextPath }/menu.jsp" />
       </td>
       <td width=800 height=600 align=center valign=top>
       		렌트 예약 추가가 성공적으로 완료되었습니다.<br/>
-			<a href="rent_list.do"><input type="button" value="목록으로"></a>
+			<a href="rent_list.do"><input type="button" class="btn" value="목록으로"></a>
       </td>
     </tr>
     

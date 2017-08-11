@@ -6,16 +6,12 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Newline CSS Template with a video background</title>
+        <title>회 원 관 리</title>
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-       <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.css">
-        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/fontAwesome.css">
         <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/templatemo-style.css">
 		<link rel="stylesheet" href="http://localhost:8080/admin_prj/common/css/main.css">
@@ -44,7 +40,8 @@
 th {
 	text-align: center;
    font-weight: normal;
-   background-color: #FAFAFA;
+   background-color: #FFBB05;
+  /*  background-color: #FAFAFA; */
    border-bottom: 1px solid #E7E7E7;
    height: 37px
 }
@@ -63,7 +60,6 @@ td {
    height: 28px;
    text-align: center;
 }
-.mouse:HOVER { background-color: #EAE9F7 }		
 
 </style>
 <script type="text/javascript">
@@ -102,7 +98,7 @@ function chkNull(){
     
     <tr>
       <td width=200 height=600 align=center valign=top>
-        <%@ include file="menu.jsp" %>
+      <c:import url="${request.contextPath }/menu.do"/>
       </td>
       <td width=800 height=600 align=center valign=top>
                <c:if test="${empty requestScope.memberList }">
@@ -139,7 +135,7 @@ function chkNull(){
 						<td><c:out value="${member.phone }"/></td>
 						<td><c:out value="${member.hiredate }"/></td>
 						<td><c:out value="${member.drop_flag }"/></td>
-						<td><input type=button value="탈퇴" onclick="del('${member.id}')"></td>
+						<td><input type=button class="btn" value="탈퇴" onclick="del('${member.id}')"></td>
 
 					</tr>
 		</c:forEach> 
@@ -195,18 +191,6 @@ function chkNull(){
   </center>
 
 
-        <footer>
-          <p>Copyright &copy; 2017 Your Company 
-                                
-           | Designed by <a href="http://www.templatemo.com" target="_parent"><em>templatemo</em></a></p>
-        </footer>
-    
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
 
     </body>
 </html>

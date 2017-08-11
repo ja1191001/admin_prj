@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>차종 수정</title>
 <style type="text/css">
 	th{ background-color:#FFBB05 }
 	tr:HOVER { background-color: #EAE9F7 }   
@@ -53,6 +53,8 @@
 		</c:forEach>
 	</table>
 	<br/>
+	<div align="center">
 	<input type="button" value="닫기" class="btn" onclick="cancle()"/>
+	</div>
 </body>
 </html>

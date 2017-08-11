@@ -61,7 +61,7 @@ th {
 	   height: 28px;
 	   text-align: center;
 	}
-	th{ background-color:#FFBB05 }
+	th{ background-color:#FFBB05; }
 /* 	tr:HOVER { background-color: #EAE9F7 }    */
 </style>
 </style>
@@ -105,10 +105,16 @@ th {
 		    
 		    <tr>
 		      <td width=200 height=600 align=center valign=top>
-		       <%@ include file="menu.jsp" %>
+		     <c:import url="${request.contextPath }/menu.do"/>
 		      </td>
 		      <td width=800 height=600 align=center valign=top>
-		     <strong>▶차종 목록◀</strong><br/>
+		      
+		      <table style="padding: 10px">
+		      <tr style="padding: 10px">
+		      <td colspan="2">
+		      
+		      
+		     <br><strong>▶차종 목록◀</strong><br/>
  	수정하고 싶은 차종의 정보를 클릭하세요.
 		<table  border="1" style="width:700px;  margin: 0px auto;">
 		<c:if test="${ empty requestScope.listType }">
@@ -138,7 +144,12 @@ th {
 		</c:forEach>
 	</table>
 	<br/>
-<br/><br/>
+<br/>
+
+	</td>
+	</tr>
+	<tr>
+	<td style="padding: 10px">
 
 	<strong>▶차량 목록◀</strong><br/>
 	수정하고 싶은 차량의 정보를 클릭하세요.
@@ -170,26 +181,29 @@ th {
 	
 	<br/><br/>
 	
+	</td>
+	<td style="padding: 10px">
+	
 	<strong>▶차종/차량 추가◀</strong><br/>
-	<table border="1" style="text-align: center; width: 300px; margin: 0px auto;" >
+	<table border="1" style="text-align: center; width: 200px; margin: 0px auto;" >
 		<tr>
 			<th>차종</th>
 			<th>차량</th>
 		</tr>
 		<tr>
 			<td>
-				<input type="button" value="추가"  style="width: 100px" class="btn" onclick="type_insert()"/>
+				<input type="button" value="추가"  style="width: 80px" class="btn" onclick="type_insert()"/>
 			</td>
-			<td>
-				<input type="button" value="추가" style="width: 100px" class="btn" onclick="car_insert()"/>
+			<td style="height: 70px;">
+				<input type="button" value="추가" style="width: 80px; padding-bottom: 10px" class="btn" onclick="car_insert()"/>
 			</td>
 		</tr>	
 	</table>
+	
+	</td>
+	</table>
 		      </td>
 		    </tr>
-		    
-		  
-		  
 		  
 		  </table>
 		  

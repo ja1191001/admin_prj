@@ -5,9 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/jsp_prj/common/css/main.css"/>
+ <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>update or delete</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/fontAwesome.css">
+        <link rel="stylesheet" href="http://localhost:8080/admin_prj/template/css/templatemo-style.css">
+		<link rel="stylesheet" href="http://localhost:8080/admin_prj/common/css/main.css">
+<!-- <link rel="stylesheet" type="text/css" href="http://localhost:8080/jsp_prj/common/css/main.css"/> -->
 
 <script type="text/javascript">
 	//////////차량 수정/////////
@@ -46,6 +55,9 @@
 				</td>
 			</tr>	
 		</table>
+		<br>
+		<div align="center">
 		<input type="button" value="닫기" class="btn" onclick="cancle()"/>
+		</div>
 </body>
 </html>

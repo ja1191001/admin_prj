@@ -179,19 +179,36 @@ public class CarController {
 	}//insert
 	
 	
-	/**
-	 * 차량 수정
-	 * @param car_num
-	 * @return
-	 */
-	@RequestMapping(value="car_update_success.do",method=GET)
-	public String carUpdate(CarUpdateVO cuv){
-		System.out.println("1.controller탑니다. 차량수정 입니다.");
-		ApplicationContext ac=new ClassPathXmlApplicationContext("kr/co/sist/car/controller/app_con.xml");
-		CarService cs=ac.getBean("car_service",CarService.class);
-		cs.modifyCar(cuv);
-		return "redirect:/car/car_main2.html";
-	}//insert
+	   /**
+	    * 차량 수정
+	    * @param car_num
+	    * @return
+	    */
+	   @RequestMapping(value="car_update_success.do",method=POST)
+	   public String carUpdate( HttpServletRequest request) throws IOException{
+	      System.out.println("1.controller탑니다. 차량추가 입니다.");
+	      String contextType=request.getContentType();
+	      if( contextType != null && contextType.startsWith("multipart")){
+	         //저장경로 설정
+	         String upload_path="C:/dev/workspace/admin_prj/WebContent/images"; //우리는 저장하는 경로가 DD에 들어있다
+	         int maxSize=1000*1000*5;
+	      MultipartRequest mr=new MultipartRequest(request,upload_path,maxSize,"UTF-8",new DefaultFileRenamePolicy());
+	      ////////////////////파일명 얻어내기/////////////////
+	      Enumeration<String> fileName=mr.getFileNames();
+	      String fileControlName="";
+	      String images="";
+	      while(fileName.hasMoreElements()){
+	         fileControlName=fileName.nextElement();
+	         images=mr.getFilesystemName(fileControlName);
+	      }//end while
+	      
+	      CarUpdateVO cuv=new CarUpdateVO(mr.getParameter("car_num"),mr.getParameter("assign_num"),mr.getParameter("car_year"),images,mr.getParameter("able_flag"));
+	      ApplicationContext ac=new ClassPathXmlApplicationContext("kr/co/sist/car/controller/app_con.xml");
+	      CarService cs=ac.getBean("car_service",CarService.class);
+	      cs.modifyCar(cuv);
+	      }
+	      return "redirect:/car/car_main2.html";
+	   }//carUpdate
 
 	
 	/**
